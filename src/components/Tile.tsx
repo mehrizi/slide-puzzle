@@ -4,6 +4,7 @@ import { calculateBackgroundPosition, calculateTileLeft, calculateTileTop } from
 type TileProps = {
   image: string ;
   index: number;
+  tile: number
 };
 const Tile = (props: TileProps) => {
 
@@ -20,7 +21,7 @@ const Tile = (props: TileProps) => {
         backgroundImage: `url(${props.image})`,
         top: calculateTileTop(props.index),
         left: calculateTileLeft(props.index),
-        backgroundPosition: calculateBackgroundPosition(props.index)
+        backgroundPosition: calculateBackgroundPosition(props.tile)
       }}
     >
       {/* Display additional content or controls inside the div if needed */}
