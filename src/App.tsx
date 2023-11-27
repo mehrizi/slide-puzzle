@@ -3,10 +3,12 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.scss";
 import Puzzle from "./components/Puzzle";
-import defaultImage from './assets/mahdi-wall.jpg'
+import defaultImage from "./assets/mahdi-wall.jpg";
 function App() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [backgroundImage, setBackgroundImage] = useState<string | null>(defaultImage);
+  const [backgroundImage, setBackgroundImage] = useState<string | null>(
+    defaultImage
+  );
   const [imageSize, setImageSize] = useState<{
     width: number;
     height: number;
@@ -35,20 +37,31 @@ function App() {
     <div className="main">
       <div className="left-panel">
         <h1>A reactive sliding puzzle</h1>
-        <button onClick={()=>elementRef.current.click()}>Change Image</button>
-      <input style={{display:'none'}} ref={elementRef} type="file" accept="image/*" onChange={handleFileChange} />
-      <div className="guide">
-      Move blocks on the right so the following image is set:
-      </div>
-      
-      {backgroundImage && <div className="image-holder">
-        <img src={backgroundImage} alt="no image"/></div>}
+        <button onClick={() => elementRef.current.click()}>Change Image</button>
+        <input
+          style={{ display: "none" }}
+          ref={elementRef}
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+        <div className="guide">
+          Move blocks on the right so the following image is set:
+        </div>
 
+        {backgroundImage && (
+          <div className="image-holder">
+            <img src={backgroundImage} alt="no image" />
+          </div>
+        )}
+
+        <div className="hint">
+          Hint: after correcting the image, the blank will be on bottom right of the canvas.
+        </div>
       </div>
       <div className="right-panel">
-      {backgroundImage && <Puzzle image={backgroundImage} />}
+        {backgroundImage && <Puzzle image={backgroundImage} />}
       </div>
-
     </div>
   );
 }
