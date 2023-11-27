@@ -1,0 +1,57 @@
+$blue : #016fec;
+
+*{
+    box-sizing: border-box;
+}
+h1{
+    font-size: 1.5rem;
+}
+.left-panel,.right-panel {
+    float: left;
+
+}
+.left-panel {
+    width: 20%;
+    overflow: hidden;
+    padding:10px;
+
+    .guide{
+        text-align: center;
+        font-weight: 100;
+        font-size: 1.1rem;
+        padding:10px;
+        color: $blue;
+    }
+
+    button{
+        border: 1px solid $blue;
+        border-radius: 5px;
+        padding:5px 10px;
+        color: $blue;
+        display: block;
+        margin: 5px auto 10px;
+    }
+    .image-holder{
+        position: relative;
+        &:after{
+            content: "";
+            display: block;
+            background-color: #eee;
+            position: absolute;
+            bottom: 0;
+            right:0;
+            width: 33%;
+            height: 33%;
+            ;
+        }
+        img{
+            max-width: 100%;
+            max-height: 100%;
+        }
+    
+    }
+}
+
+.right-panel {
+    width: 80%;
+}
