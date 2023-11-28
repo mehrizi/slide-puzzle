@@ -5,23 +5,23 @@ type TileProps = {
   image: string ;
   index: number;
   tile: number
+  size: number
 };
 const Tile = (props: TileProps) => {
 
   return (
     <div
       style={{
-        // float: "left",
-        width: "33.3%",
-        height: "33.3%",
+        width:  (100/props.size)+"%",
+        height: (100/props.size)+"%",
         border: "1px solid #ccc",
         boxSizing: 'border-box',
-        backgroundSize: "300%",
+        backgroundSize: `${props.size*100}%`,
         position: "absolute",
         backgroundImage: `url(${props.image})`,
-        top: calculateTileTop(props.index),
-        left: calculateTileLeft(props.index),
-        backgroundPosition: calculateBackgroundPosition(props.tile)
+        top: calculateTileTop(props.index,props.size),
+        left: calculateTileLeft(props.index,props.size),
+        backgroundPosition: calculateBackgroundPosition(props.tile,props.size)
       }}
     >
       {/* Display additional content or controls inside the div if needed */}

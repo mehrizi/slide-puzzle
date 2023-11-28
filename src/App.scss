@@ -15,6 +15,13 @@ h1{
     overflow: hidden;
     padding:10px;
 
+    label{
+        margin: 0 auto;
+        display: block;
+        width: fit-content;
+        padding:3px 5px;
+        cursor: pointer;
+    }
     .guide{
         text-align: center;
         font-weight: 100;
@@ -36,15 +43,13 @@ h1{
     }
     .image-holder{
         position: relative;
-        &:after{
+        .blank{
             content: "";
             display: block;
-            background-color: #eee;
+            background-color: #fff;
             position: absolute;
             bottom: 0;
             right:0;
-            width: 33%;
-            height: 33%;
             ;
         }
         img{

@@ -1,41 +1,30 @@
-import React, { useState, ChangeEvent, useEffect } from "react";
-import Tile from "./Tile";
+import { useEffect, useState } from "react";
+import { TileHelper } from "../helpers";
 import EmptyTile from "./EmptyTile";
-import { TileHelper, solvableShuffle } from "../helpers";
 import "./Puzzle.scss";
+import Tile from "./Tile";
 
 type PuzzleProps = {
   image: string;
+  size: number;
 };
 const Puzzle = (props: PuzzleProps) => {
   const [imageSize, setImageSize] = useState<{
     width: number;
     height: number;
   } | null>(null);
+  const [moveCount, setMoveCount] = useState(0);
 
-  // First lets generte a random sequence of tiles
+  let helper = new TileHelper(props.size);
+  const [tiles, setTiles] = useState<number[]>(
+    helper.shuffle(helper.generateTiles())
+  );
 
-  // const [tiles, setTiles] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8,9]);
-  let T:number[] = [1, 2, 3, 4, 5, 6, 7, 8,9];
-  for (let i=0;i<=100;i++){
-    switch(Math.floor(Math.random()*4)){
-      case 0:
-        T=TileHelper.upward(T)
-        break
-      case 1:
-        T=TileHelper.rightward(T)
-        break
-      case 2:
-        T=TileHelper.leftward(T)
-        break
-      case 3:
-        T=TileHelper.downward(T)
-        break
-
-    }
-  }
-
-  const [tiles, setTiles] = useState<number[]>([...T]);
+  useEffect(() => {
+    helper = new TileHelper(props.size);
+    setMoveCount(0);
+    setTiles(helper.shuffle(helper.generateTiles()));
+  }, [props.size]);
 
   useEffect(() => {
     if (props.image) {
@@ -55,26 +44,30 @@ const Puzzle = (props: PuzzleProps) => {
         width: imageSize?.width,
         height: imageSize?.height,
         maxHeight: "95vh",
-        // maxWidth: "95hw",
-        // maxHeight: "100%",
         maxWidth: "100%",
-        // overflow: "hidden",
+        overflow: "hidden",
         position: "relative",
       }}
     >
+      <div className="move-count">moves: {moveCount}</div>
       {tiles.map((tile: number, index: number) => {
-        if (tile == 9)
+        if (tile == props.size * props.size)
           return (
             <EmptyTile
+              size={props.size}
               key={tile}
               index={index + 1}
               tiles={tiles}
-              onUpdate={setTiles}
+              onUpdate={(tiles) => {
+                setTiles(tiles);
+                setMoveCount(moveCount + 1);
+              }}
             />
           );
         else
           return (
             <Tile
+              size={props.size}
               key={tile}
               image={props.image}
               tile={tile}

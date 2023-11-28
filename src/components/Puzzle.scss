@@ -1,3 +1,10 @@
+.move-count{
+  position: absolute;
+  padding:5px;
+  background-color: rgba(225,225,225,.8);
+  z-index: 1000;
+  border-radius: 0 0 5px 0;
+}
 .empty-tile {
   z-index: 100;
 

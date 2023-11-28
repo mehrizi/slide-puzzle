@@ -1,56 +1,78 @@
-import { TileHelper, calculateTileLeft, calculateTileTop, solvableShuffle } from "../helpers";
+import {
+  TileHelper,
+  calculateTileLeft,
+  calculateTileTop,
+  solvableShuffle,
+} from "../helpers";
 
 type EmptyTileProps = {
   index: number;
   tiles: number[];
   onUpdate: Function;
+  size: number;
 };
 const EmptyTile = (props: EmptyTileProps) => {
-  
+  let helper = new TileHelper(props.size);
   const upward = () => {
-    props.onUpdate([...TileHelper.upward(props.tiles)]);
+    props.onUpdate([...helper.upward(props.tiles)]);
   };
 
   const downward = () => {
-    props.onUpdate([...TileHelper.downward(props.tiles)]);
+    props.onUpdate([...helper.downward(props.tiles)]);
   };
   const rightward = () => {
-    props.onUpdate([...TileHelper.rightward(props.tiles)]);
+    props.onUpdate([...helper.rightward(props.tiles)]);
   };
   const leftward = () => {
-    props.onUpdate([...TileHelper.leftward(props.tiles)]);
+    props.onUpdate([...helper.leftward(props.tiles)]);
   };
 
   const showUpward = () => {
-    return props.index >= 4;
+    return helper.canUpward(props.index);
   };
   const showDownward = () => {
-    return props.index <= 6;
+    return helper.canDownward(props.index);
   };
   const showRightward = () => {
-    return props.index %3!=0;
+    return helper.canRightward(props.index);
   };
   const showLeftward = () => {
-    return props.index %3!=1;
+    return helper.canLeftward(props.index);
   };
   return (
     <div
-    className="empty-tile"
+      className="empty-tile"
       style={{
-        width: "33.3%",
-        height: "33.3%",
+        width: 100 / props.size + "%",
+        height: 100 / props.size + "%",
         border: "1px solid #ccc",
         boxSizing: "border-box",
         backgroundSize: "300%",
         position: "absolute",
-        top: calculateTileTop(props.index),
-        left: calculateTileLeft(props.index),
+        top: calculateTileTop(props.index, props.size),
+        left: calculateTileLeft(props.index, props.size),
       }}
     >
-      {showUpward() && <button className='down' onClick={upward}>down</button>}
-      {showDownward() && <button className='up' onClick={downward}>up</button>}
-      {showRightward() && <button className='left' onClick={rightward}>left</button>}
-      {showLeftward() && <button className='right' onClick={leftward}>right</button>}
+      {showUpward() && (
+        <button className="down" onClick={upward}>
+          down
+        </button>
+      )}
+      {showDownward() && (
+        <button className="up" onClick={downward}>
+          up
+        </button>
+      )}
+      {showRightward() && (
+        <button className="left" onClick={rightward}>
+          left
+        </button>
+      )}
+      {showLeftward() && (
+        <button className="right" onClick={leftward}>
+          right
+        </button>
+      )}
     </div>
   );
 };

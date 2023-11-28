@@ -5,6 +5,7 @@ import "./App.scss";
 import Puzzle from "./components/Puzzle";
 import defaultImage from "./assets/mahdi-wall.jpg";
 function App() {
+  const [puzzleSize, setPuzzleSize] = useState<number>(4);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [backgroundImage, setBackgroundImage] = useState<string | null>(
     defaultImage
@@ -37,6 +38,18 @@ function App() {
     <div className="main">
       <div className="left-panel">
         <h1>A reactive sliding puzzle</h1>
+        <label>
+          <input type="radio" checked={puzzleSize == 3} onClick={()=>setPuzzleSize(3)}/> 3x3
+        </label>
+        <label>
+          <input type="radio" checked={puzzleSize == 4} onClick={()=>setPuzzleSize(4)}/> 4x4
+        </label>
+        <label>
+          <input type="radio" checked={puzzleSize == 5} onClick={()=>setPuzzleSize(5)}/> 5x5
+        </label>
+        <label>
+          <input type="radio" checked={puzzleSize == 6} onClick={()=>setPuzzleSize(6)}/> 6x6
+        </label>
         <button onClick={() => elementRef.current.click()}>Change Image</button>
         <input
           style={{ display: "none" }}
@@ -50,17 +63,22 @@ function App() {
         </div>
 
         {backgroundImage && (
-          <div className="image-holder">
+          <div className="image-holder" >
             <img src={backgroundImage} alt="no image" />
+            <div style={{
+              width: (100/puzzleSize)+"%",
+              height: (100/puzzleSize)+"%",
+          }} className="blank"></div>
           </div>
         )}
 
         <div className="hint">
-          Hint: after correcting the image, the blank will be on bottom right of the canvas.
+          Hint: after correcting the image, the blank will be on bottom right of
+          the canvas.
         </div>
       </div>
       <div className="right-panel">
-        {backgroundImage && <Puzzle image={backgroundImage} />}
+        {backgroundImage && <Puzzle size={puzzleSize} image={backgroundImage} />}
       </div>
     </div>
   );
