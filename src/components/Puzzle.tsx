@@ -58,7 +58,7 @@ const Puzzle = (props: PuzzleProps) => {
               key={tile}
               index={index + 1}
               tiles={tiles}
-              onUpdate={(tiles) => {
+              onUpdate={(tiles:number[]) => {
                 setTiles(tiles);
                 setMoveCount(moveCount + 1);
               }}

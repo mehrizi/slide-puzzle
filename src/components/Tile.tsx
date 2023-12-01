@@ -1,4 +1,3 @@
-import React, { useState, ChangeEvent, useEffect } from "react";
 import { calculateBackgroundPosition, calculateTileLeft, calculateTileTop } from "../helpers";
 
 type TileProps = {
@@ -19,6 +18,7 @@ const Tile = (props: TileProps) => {
         backgroundSize: `${props.size*100}%`,
         position: "absolute",
         backgroundImage: `url(${props.image})`,
+        transition: 'all .3s',
         top: calculateTileTop(props.index,props.size),
         left: calculateTileLeft(props.index,props.size),
         backgroundPosition: calculateBackgroundPosition(props.tile,props.size)

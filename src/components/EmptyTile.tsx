@@ -1,8 +1,7 @@
 import {
   TileHelper,
   calculateTileLeft,
-  calculateTileTop,
-  solvableShuffle,
+  calculateTileTop
 } from "../helpers";
 
 type EmptyTileProps = {

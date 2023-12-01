@@ -1,21 +1,14 @@
-import { useRef, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { ChangeEvent, useRef, useState } from "react";
 import "./App.scss";
-import Puzzle from "./components/Puzzle";
 import defaultImage from "./assets/mahdi-wall.jpg";
+import Puzzle from "./components/Puzzle";
 function App() {
-  const [puzzleSize, setPuzzleSize] = useState<number>(4);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [puzzleSize, setPuzzleSize] = useState<number>(3);
+  // const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [backgroundImage, setBackgroundImage] = useState<string | null>(
     defaultImage
   );
-  const [imageSize, setImageSize] = useState<{
-    width: number;
-    height: number;
-  } | null>(null);
-
-  const elementRef = useRef();
+  const elementRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -24,7 +17,7 @@ function App() {
       const reader = new FileReader();
       reader.onload = () => {
         const result = reader.result as string;
-        setSelectedFile(file);
+        // setSelectedFile(file);
         setBackgroundImage(result);
 
         // Create an Image object to get the width and height
@@ -50,7 +43,7 @@ function App() {
         <label>
           <input type="radio" checked={puzzleSize == 6} onClick={()=>setPuzzleSize(6)}/> 6x6
         </label>
-        <button onClick={() => elementRef.current.click()}>Change Image</button>
+        <button onClick={() => elementRef.current?.click()}>Change Image</button>
         <input
           style={{ display: "none" }}
           ref={elementRef}
